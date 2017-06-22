@@ -11,29 +11,41 @@ import java.io.*;
 import java.lang.*;
 
 public class WW {
-    final int initalPopulation = 10000;
 
-    public static void main(String[] args){
-        double infectedC;
-        double immuneC;
-        double survivedC;
 
-        Console c = System.console();
-        String y = c.readLine();
+    public static int findInfected(int population, double infectionCoefficient){
+        return 0;
+    }
 
-        String[] parts = y.split(" ");
+    public static int findSurvived(int population, double infectionCoefficient){
+        return 0;
+    }
 
-        if(parts.length != 4){
-            System.out.print("Error: 4 args required");
-            System.exit(0);
+    public static int findImmune(int population, double infectionCoefficient){
+        return 0;
+    }
+
+    public static void main(String[] args) throws IOException {
+        double infectedC = 0;
+        double immuneC = 0;
+        double survivedC = 0;
+        int initialPopulation = 0;
+
+        BufferedReader userIn = new BufferedReader(new InputStreamReader(System.in));
+
+        String strLine = userIn.readLine();
+
+        String[] input = strLine.split(" ");
+
+        if(input.length != 4){
+            throw new IOException("Usage: Must pass a population size, initial infected, and coefficients");
         }
 
         int infected = findInfected(initialPopulation, infectedC);
 
-        int survived = findSurvived();
+        int survived = findSurvived(initialPopulation, survivedC);
 
-        int immune  = findImmune();
+        int immune  = findImmune(initialPopulation, immuneC);
     }
 
-    public static int findInfected
 }
