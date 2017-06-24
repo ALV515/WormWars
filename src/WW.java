@@ -61,13 +61,12 @@ public class WW {
         int generation = 0;
 
         do{
-
+            System.out.println("GENERATION: " + generation + " Population: " + population + " Infected: " + numInfected + " Immune: " + immune);
+            generation++;
             numInfected = numInfected + iPrime(population, infectedC);
             immune = immune + rPrime(population, numInfected, survivedC, immuneC);
 
             population = population - (numInfected + immune);
-            generation++;
-            System.out.println(population);
 
         }while(population >= 0);
 
