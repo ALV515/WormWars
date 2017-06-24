@@ -5,6 +5,7 @@
 /*
 * Simple SIR model to find the number of generations a virus survives until a population is immune or infected.
  */
+
 import java.util.*;
 import java.math.*;
 import java.io.*;
@@ -13,22 +14,25 @@ import java.lang.*;
 public class WW {
 
 
-    public static int findInfected(int population, double infectionCoefficient){
-        return 0;
-    }
+     public static int iPrime(int population, double cInfected){
+            int gInfected = (int) (population * cInfected);
+            return gInfected;
+ }
 
-    public static int findSurvived(int population, double infectionCoefficient){
-        return 0;
-    }
+    public static int rPrime(int population, int numInfected, double cSurvived,  double cImmune){
+        int popImmune = (int) (population * cImmune);
+        int infImmune = (int) (numInfected * cSurvived);
 
-    public static int findImmune(int population, double infectionCoefficient){
-        return 0;
+        int totalImmune = popImmune + infImmune;
+        return totalImmune;
+
     }
 
     public static void main(String[] args) throws IOException {
         double infectedC = 0;
         double immuneC = 0;
         double survivedC = 0;
+        int numInfected = 0;
         int initialPopulation = 0;
 
         BufferedReader userIn = new BufferedReader(new InputStreamReader(System.in));
@@ -37,15 +41,37 @@ public class WW {
 
         String[] input = strLine.split(" ");
 
-        if(input.length != 4){
+        if(input.length != 5){
             throw new IOException("Usage: Must pass a population size, initial infected, and coefficients");
         }
 
-        int infected = findInfected(initialPopulation, infectedC);
+        initialPopulation = Integer.parseInt(input[0]);
+        numInfected = Integer.parseInt((input[1]));
+        int immune = 0;
 
-        int survived = findSurvived(initialPopulation, survivedC);
+        if(numInfected > initialPopulation){
+            throw new IOException(("Error: population too small"));
+        }
 
-        int immune  = findImmune(initialPopulation, immuneC);
+        infectedC = Double.parseDouble(input[2]);
+        immuneC = Double.parseDouble(input[3]);
+        survivedC = Double.parseDouble(input[4]);
+
+        int population = initialPopulation;
+        int generation = 0;
+
+        do{
+
+            numInfected = numInfected + iPrime(population, infectedC);
+            immune = immune + rPrime(population, numInfected, survivedC, immuneC);
+
+            population = population - (numInfected + immune);
+            generation++;
+            System.out.println(population);
+
+        }while(population >= 0);
+
+        System.out.println("There were " + generation + " generations until the population died or became immune");
     }
 
 }
