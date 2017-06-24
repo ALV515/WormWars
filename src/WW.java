@@ -61,8 +61,10 @@ public class WW {
         int generation = 0;
 
         do{
-            System.out.println("GENERATION: " + generation + " Population: " + population + " Infected: " + numInfected + " Immune: " + immune);
             generation++;
+
+            System.out.println("GENERATION: " + generation + " Untouched Population: " + population + " Infected: " + numInfected + " Immune: " + immune);
+
             numInfected = numInfected + iPrime(population, infectedC);
             immune = immune + rPrime(population, numInfected, survivedC, immuneC);
 
